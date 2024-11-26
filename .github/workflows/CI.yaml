@@ -1,11 +1,11 @@
-name: CI Process
-run-name: ${{github.actor }} is learning Github actions
-on: [push]
-jobs:
-  behave-testing:
+name:  CI Process
+run-name:  ${{github.actor }} is learning Github actions
+on:  [push]
+jobs:  
+  behave-testing:  
   #Setup of simple OS of choice i.e. Linux
   #create VM with ubuntu OS
-    runs-on: ubutu-latest
+    runs-on:  ubutu-latest
 
     steps:
     #Setup of environment for test
@@ -15,7 +15,7 @@ jobs:
         run:  |
           ls
     #Setup tools necessary for testing, search from marketplace
-      - name: Setup Python
-        uses: actions/setup-python@v5.3.0
+      - name:  Setup Python
+        uses:  actions/setup-python@v5.3.0
         with:
           python-version:  '3.9'
