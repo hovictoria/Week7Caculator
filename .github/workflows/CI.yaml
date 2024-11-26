@@ -15,7 +15,20 @@ jobs:
         run:  |
           ls
     #Setup tools necessary for testing, search from marketplace
-      - name:  Setup Python
+      - name:  Set up Python
         uses:  actions/setup-python@v5.3.0
         with:  
           python-version:  '3.9'
+
+      - name:  Install Python package
+        uses:  durandtibo/pip-install-package-action@v0.3.1
+        with:  
+          package-name:  behave
+          package-version:  '1.2.6'
+          python-version:  '3.9'
+
+      - name:  Run Behave test
+        run:  |
+          behave 
+          
+      
