@@ -28,7 +28,44 @@ jobs:
             behave
 
       # Run behave
-      - name: Run behave test
-        uses: cryptic-wizard/run-behave-tests@v0.4.0
+      #- name: Run behave test
+        #uses: cryptic-wizard/run-behave-tests@v0.4.0
+        #with:
+        #  test-output-name: results.xml
+        
+      - name: Build behave output
+        id: build
+        run: |
+          mkdir -p build_outputs_folder
+          behave --junit --junit-directory build_outputs_folder
+      
+      - name: Upload static files as artifact
+        id: deployment
+        uses: actions/upload-pages-artifact@v3
         with:
-          test-output-name: results.txt
+          path: build_outputs_folder/
+
+
+      - name: create an issue
+        uses: dacbd/create-issue-action@main
+        with:
+          token: ${{ github.token }}
+          title: |
+            [${{ github.workflow }}] failed during [${{ github.event_name }}]
+          body: |
+            ## Failure Report:
+            
+            > [!IMPORTANT]
+            > Details on failed run: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+    
+            - Author: @${{ github.triggering_actor }}
+            - Branch: `${{ github.ref }}`
+            - Commit: ${{ github.sha }}
+            - Workflow Path: `${{ github.workflow_ref }}`
+    
+            - [ ] **Task**: Review failed run, fix the issue(s), and re-run until successful.
+    
+            > This issue was created automatically by GitHub, 
+            > through `dacbd/create-issue-action@main` action
+            > and KemingHe's contribution.
+            > **DO NOT** close this issue until resolved.
