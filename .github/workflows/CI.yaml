@@ -1,1 +1,16 @@
+name: CI Process
+run-name: ${{github.actor }} is learning Github actions
+on: [push]
+jobs:
+  behave-testing:
+  #Setup of simple OS of choice i.e. Linux
+  #create VM with ubuntu OS
+    runs-on: ubutu-latest
 
+    steps:
+    #Setup of environment for test
+      - name: Checkout
+        uses: actions/checkpoint@v4.2.2
+      - name: List repo
+        run:
+          ls
