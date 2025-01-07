@@ -38,13 +38,12 @@ jobs:
         #uses: cryptic-wizard/run-behave-tests@v0.4.0
         #with:
         #  test-output-name: results.xml
-        
-      - name: Build behave output
-        id: build
+  
+          
+      - name: run behave test
         run: |
-          mkdir -p build_outputs_folder
-          behave --junit --junit-directory build_outputs_folder
-      
+          behave features/ --junit --junit-directory=test-results
+          
       - name: Upload static files as artifact
         id: deployment
         # uses: actions/upload-pages-artifact@v3 # saves as .tar file
