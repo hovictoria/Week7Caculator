@@ -43,13 +43,7 @@ jobs:
       - name: run behave test
         run: |
           behave features/ --junit --junit-directory=test-results
-          
-      - name: Upload static files as artifact
-        id: deployment
-        # uses: actions/upload-pages-artifact@v3 # saves as .tar file
-        uses: actions/upload-artifact@v3
-        with:
-          path: build_outputs_folder/
+        
     
       - name: create an issue
         if: failure()  # Only run this step if the job fails
